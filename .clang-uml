@@ -1,26 +1,22 @@
+# .clang-uml
 compilation_database_dir: out/build/x64-Debug
 output_directory: diagrams
 
-# Tell Clang to parse flags like MSVC
-add_compile_flags:
-  - "--driver-mode=cl"
-
 diagrams:
-  battleship_classes:
+  battleship_class_diagram:
     type: class
     glob:
-      - "**/*.cpp"
-      - "**/*.h"
-      - "**/*.hpp"
+      - src/*.cpp
+      - src/*.h
+      - src/*.hpp
+      - include/*.h
+      - include/*.hpp
     include:
       paths:
-        - .
+        - src
     exclude:
+      paths:
+        - out/build/x64-Debug/_deps
       namespaces:
         - std
-        - __crt
-        - stdext
         - sf
-      paths:
-        - "C:/Program Files*"
-        - "C:/MSVC*"

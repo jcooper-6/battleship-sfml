@@ -1,0 +1,84 @@
+@startuml
+class "Tile" as C_0005250804619194155145
+class C_0005250804619194155145 {
++Tile() : void
+..
++GetShipStatus() const : bool
++OverlayTexture(std::string name) : void
++SetShip() : void
++SetTexture(std::string name) : void
+__
+-has_ship : bool
++overlay_sprite : sf::Sprite
++revealed : bool
++tile_sprite : sf::Sprite
+}
+class "Board" as C_0010358599209595726571
+class C_0010358599209595726571 {
++Board(int rows, int cols, int ships) : void
+..
++Attack_Tile(Tile * tile) : void
++Get_Hits_Landed() const : int
++Get_Tiles() : std::vector<std::vector<Tile>> &
++createBoard(float x_offset, float y_offset) : void
++placeShips() : void
+__
+-cols : int
+-hits_landed : int
+-revealed_tiles : int
+-rows : int
+-ships : int
+-tiles : std::vector<std::vector<Tile>>
+}
+class "TextureManager" as C_0013303839672782456171
+class C_0013303839672782456171 {
+{static} +Clear() : void
+{static} +GetTexture(string textureName) : sf::Texture &
+{static} -LoadTexture(string textureName) : void
+__
+{static} -textures : std::unordered_map<string,sf::Texture>
+}
+class "Random" as C_0010355923053893780578
+class C_0010355923053893780578 {
+{static} +Float(float min, float max) : float
+{static} +Int(int min, int max) : int
+__
+{static} -random : std::mt19937
+}
+class "Button" as C_0000221405838615140689
+class C_0000221405838615140689 {
++Button(float x, float y, const std::string & texture_name) : void
+..
++change_texture(const std::string & texture_name) : void
++get_sprite() : sf::Sprite &
++is_clicked(sf::Vector2f mouse_pos) const : bool
+__
+-sprite : sf::Sprite
+}
+class "Counter" as C_0011320984242218861763
+class C_0011320984242218861763 {
++Counter(float x, float y) : void
+..
++get_sprites(int ships_remaining) : std::vector<sf::Sprite>
+__
+-pos_x : float
+-pos_y : float
+}
+class "Timer" as C_0016540721780518084962
+class C_0016540721780518084962 {
++Timer(float x, float y) : void
+..
++get_sprites() : std::vector<sf::Sprite>
++is_game_over() const : bool
++reset() : void
++update(float delta_time) : void
+__
+-pos_x : float
+-pos_y : float
+-time_remaining : float
+}
+C_0010358599209595726571 o-- C_0005250804619194155145 : -tiles
+
+'Generated with clang-uml, version 0.6.3
+'LLVM version clang version 22.1.8 (https://github.com/llvm/llvm-project.git ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+@enduml
