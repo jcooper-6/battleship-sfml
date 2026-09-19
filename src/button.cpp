@@ -1,4 +1,4 @@
-#include "Button.h"
+#include "button.h"
 #include "TextureManager.h"
 
 // Initialize the sf::Sprite member with its required texture via the initializer list

@@ -1,7 +1,7 @@
-#include "Board.h"
+#include "board.h"
 #include "TextureManager.h"
 #include <SFML/Graphics.hpp>
-#include "Random.h"
+#include "random.h"
 
 Board::Board(int rows, int cols, int ships)
 {

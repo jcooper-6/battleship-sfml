@@ -1,4 +1,4 @@
-#include "Counter.h"
+#include "counter.h"
 #include "TextureManager.h"
 
 Counter::Counter(float x, float y) : pos_x(x), pos_y(y) {}

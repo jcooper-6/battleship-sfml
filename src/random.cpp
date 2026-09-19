@@ -1,4 +1,4 @@
-#include "Random.h"
+#include "random.h"
 #include <ctime>
 
 std::mt19937 Random::random(time(0));

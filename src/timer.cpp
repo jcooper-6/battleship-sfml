@@ -1,4 +1,4 @@
-#include "Timer.h"
+#include "timer.h"
 #include "TextureManager.h"
 
 Timer::Timer(float x, float y) : pos_x(x), pos_y(y), time_remaining(600.0f) {}

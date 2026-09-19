@@ -1,4 +1,4 @@
-#include "Tile.h"
+#include "tile.h"
 #include "TextureManager.h" 
 
 // SFML 3.0 requires sprites to be initialized with a texture immediately via an initializer list
