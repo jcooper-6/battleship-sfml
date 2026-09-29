@@ -6,6 +6,7 @@ class Tile
 {
 private:
     bool has_ship;
+    int ship_id;
 
 public:
     bool revealed;
@@ -14,8 +15,9 @@ public:
 
     Tile();
 
-    void SetShip();
+    void SetShip(int id);
     bool GetShipStatus() const;
+    int GetShipId() const;
 
     void SetTexture(std::string name);
     void OverlayTexture(std::string name);

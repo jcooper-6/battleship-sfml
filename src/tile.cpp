@@ -1,23 +1,29 @@
 #include "tile.h"
 #include "TextureManager.h" 
 
-// SFML 3.0 requires sprites to be initialized with a texture immediately via an initializer list
 Tile::Tile() :
-    tile_sprite(TextureManager::GetTexture("water")),
-    overlay_sprite(TextureManager::GetTexture("water"))
+    tile_sprite(TextureManager::GetTexture("grid")),
+    overlay_sprite(TextureManager::GetTexture("grid"))
 {
     has_ship = false;
     revealed = false;
+    ship_id = -1;
 }
 
-void Tile::SetShip()
+void Tile::SetShip(int id)
 {
     this->has_ship = true;
+    this->ship_id = id;
 }
 
 bool Tile::GetShipStatus() const
 {
     return has_ship;
+}
+
+int Tile::GetShipId() const
+{
+    return ship_id;
 }
 
 void Tile::SetTexture(std::string name)

@@ -26,13 +26,11 @@ std::vector<sf::Sprite> Timer::get_sprites() {
 
     if (count > 999) count = 999;
 
-    // SFML 3.0 requires passing the texture directly to the Sprite constructor
     const sf::Texture& digits_tex = TextureManager::GetTexture("digits");
     sf::Sprite first_num(digits_tex);
     sf::Sprite second_num(digits_tex);
     sf::Sprite third_num(digits_tex);
 
-    // SFML 3.0 requires a single sf::Vector2f via {} 
     first_num.setPosition({ pos_x, pos_y });
     second_num.setPosition({ pos_x + 21.0f, pos_y });
     third_num.setPosition({ pos_x + 42.0f, pos_y });
@@ -41,7 +39,6 @@ std::vector<sf::Sprite> Timer::get_sprites() {
     int second_digit = (count / 10) % 10;
     int third_digit = count % 10;
 
-    // SFML 3.0 requires {{x, y}, {width, height}} for IntRect
     first_num.setTextureRect(sf::IntRect({ first_digit * 21, 0 }, { 21, 32 }));
     second_num.setTextureRect(sf::IntRect({ second_digit * 21, 0 }, { 21, 32 }));
     third_num.setTextureRect(sf::IntRect({ third_digit * 21, 0 }, { 21, 32 }));

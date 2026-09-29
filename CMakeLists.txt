@@ -24,6 +24,7 @@ add_executable(main
     src/timer.cpp
     src/counter.cpp
     src/button.cpp
+    src/leaderboard.cpp
 
 )
 target_compile_features(main PRIVATE cxx_std_17)

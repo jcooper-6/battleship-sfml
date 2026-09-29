@@ -1,7 +1,6 @@
 #include "button.h"
 #include "TextureManager.h"
 
-// Initialize the sf::Sprite member with its required texture via the initializer list
 Button::Button(float x, float y, const std::string& texture_name)
     : sprite(TextureManager::GetTexture(texture_name))
 {
