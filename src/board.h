@@ -25,6 +25,7 @@ private:
     std::vector<VisualShip> visual_ships;
 
     void Attack_Tile_Cascade(int r, int c, int ship_id);
+    bool isValidPlacement(int r, int c, int length, bool horizontal) const;
 
 public:
     Board(int rows, int cols);

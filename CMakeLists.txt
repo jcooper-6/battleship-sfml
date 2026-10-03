@@ -25,6 +25,7 @@ add_executable(main
     src/counter.cpp
     src/button.cpp
     src/leaderboard.cpp
+    src/GameManager.cpp
 
 )
 target_compile_features(main PRIVATE cxx_std_17)

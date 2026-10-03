@@ -1,13 +1,14 @@
 #include "tile.h"
 #include "TextureManager.h" 
 
-Tile::Tile() :
+Tile::Tile()
+    : has_ship(false),
+    ship_id(-1),
+    revealed(false),
     tile_sprite(TextureManager::GetTexture("grid")),
     overlay_sprite(TextureManager::GetTexture("grid"))
 {
-    has_ship = false;
-    revealed = false;
-    ship_id = -1;
+
 }
 
 void Tile::SetShip(int id)

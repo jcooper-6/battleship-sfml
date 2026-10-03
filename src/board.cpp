@@ -4,13 +4,32 @@
 #include "random.h"
 
 Board::Board(int rows, int cols)
+    : rows(rows),
+    cols(cols),
+    revealed_tiles(0),
+    hits_landed(0),
+    sunk_ships(0),
+    attacks_made(0)
 {
-    revealed_tiles = 0;
-    this->rows = rows;
-    this->cols = cols;
-    hits_landed = 0;
-    sunk_ships = 0;
-    attacks_made = 0;
+
+}
+
+bool Board::isValidPlacement(int r, int c, int length, bool horizontal) const {
+    // 1. Check boundary limits
+    if (horizontal && c + length > cols) return false;
+    if (!horizontal && r + length > rows) return false;
+
+    // 2. Check for overlaps with existing ships
+    for (int i = 0; i < length; i++) {
+        int check_r = r + (horizontal ? 0 : i);
+        int check_c = c + (horizontal ? i : 0);
+
+        if (tiles[check_r][check_c].GetShipStatus()) {
+            return false; // Found an overlap, invalid placement
+        }
+    }
+
+    return true; // Passed all checks, valid placement
 }
 
 void Board::placeShips()
@@ -28,27 +47,9 @@ void Board::placeShips()
             int c = Random::Int(0, cols - 1);
             bool horizontal = Random::Int(0, 1) == 0;
 
-            // Check grid bounds
-
-            if (horizontal && c + length > cols) continue;
-            if (!horizontal && r + length > rows) continue;
-
-            // Check for overlapping with another ship
-            bool overlap = false;
-            for (int i = 0; i < length; i++)
+            if (isValidPlacement(r, c, length, horizontal))
             {
-                int check_r = r + (horizontal ? 0 : i);
-                int check_c = c + (horizontal ? i : 0);
-                if (tiles[check_r][check_c].GetShipStatus())
-                {
-                    overlap = true;
-                    break;
-                }
-            }
-
-            if (!overlap)
-            {
-                // 1. Set tiles as a ship
+                // 1. Set logical tiles
                 for (int i = 0; i < length; i++)
                 {
                     int place_r = r + (horizontal ? 0 : i);
@@ -56,12 +57,11 @@ void Board::placeShips()
                     tiles[place_r][place_c].SetShip(current_id);
                 }
 
+                // 2. Create the Visual Sprite
                 VisualShip vs(current_id, TextureManager::GetTexture(ship_textures[current_id]));
 
-                // Fetch the grid offsets for this board
                 float board_x_offset = tiles[0][0].tile_sprite.getPosition().x;
                 float board_y_offset = tiles[0][0].tile_sprite.getPosition().y;
-
                 float x_pos = (c * 32.0f) + board_x_offset;
                 float y_pos = (r * 32.0f) + board_y_offset;
 
@@ -70,7 +70,6 @@ void Board::placeShips()
                     vs.sprite.setRotation(sf::degrees(0));
                 }
                 else {
-                    // Offset X by 32 pixels so it pivots downward into the correct column
                     vs.sprite.setPosition({ x_pos + 32.0f, y_pos });
                     vs.sprite.setRotation(sf::degrees(90));
                 }

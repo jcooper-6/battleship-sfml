@@ -15,6 +15,14 @@ __
 -ship_id : int
 +tile_sprite : sf::Sprite
 }
+class "VisualShip" as C_0012981370137985239891
+class C_0012981370137985239891 {
++VisualShip(int ship_id, const sf::Texture & tex) : void
+__
++id : int
++is_revealed : bool
++sprite : sf::Sprite
+}
 class "Board" as C_0010358599209595726571
 class C_0010358599209595726571 {
 +Board(int rows, int cols) : void
@@ -26,7 +34,9 @@ class C_0010358599209595726571 {
 +Get_Revealed_Tiles() const : int
 +Get_Sunk_Ships() const : int
 +Get_Tiles() : std::vector<std::vector<Tile>> &
++Get_Visual_Ships() : std::vector<VisualShip> &
 +createBoard(float x_offset, float y_offset) : void
+-isValidPlacement(int r, int c, int length, bool horizontal) const : bool
 +placeShips() : void
 __
 -attacks_made : int
@@ -36,6 +46,7 @@ __
 -rows : int
 -sunk_ships : int
 -tiles : std::vector<std::vector<Tile>>
+-visual_ships : std::vector<VisualShip>
 }
 class "TextureManager" as C_0013303839672782456171
 class C_0013303839672782456171 {
@@ -71,6 +82,19 @@ __
 -pos_x : float
 -pos_y : float
 }
+class "Timer" as C_0016540721780518084962
+class C_0016540721780518084962 {
++Timer(float x, float y) : void
+..
++get_sprites() : std::vector<sf::Sprite>
++is_game_over() const : bool
++reset() : void
++update(float delta_time) : void
+__
+-pos_x : float
+-pos_y : float
+-time_remaining : float
+}
 class "ScoreEntry" as C_0004388322207682371427
 class C_0004388322207682371427 {
 __
@@ -97,21 +121,47 @@ __
 -is_showing_scores : bool
 -scores : std::vector<ScoreEntry>
 }
-class "Timer" as C_0016540721780518084962
-class C_0016540721780518084962 {
-+Timer(float x, float y) : void
+class "GameManager" as C_0007274271151019855886
+class C_0007274271151019855886 {
++GameManager() : void
 ..
-+get_sprites() : std::vector<sf::Sprite>
-+is_game_over() const : bool
-+reset() : void
-+update(float delta_time) : void
+-executeAITurn() : void
+-isMouseInAIGrid(sf::Vector2f mouse_pos_grid) : bool
+-processEvents() : void
+-render() : void
+-resetGame() : void
++run() : void
+-update(float dt) : void
 __
--pos_x : float
--pos_y : float
--time_remaining : float
+-COLS : const int
+-GRID_SIZE : const int
+-ROWS : const int
+-SHIP_COUNT : const int
+-ai_board : Board
+-ai_ships_counter : Counter
+-delta_clock : sf::Clock
+-final_accuracy : float
+-font : sf::Font
+-game_over : bool
+-game_timer : Timer
+-leaderboard : Leaderboard
+-ocean_bg : sf::Sprite
+-p_ships_counter : Counter
+-player_board : Board
+-reset_button : Button
+-total_game_time : float
+-window : sf::RenderWindow
 }
 C_0010358599209595726571 o-- C_0005250804619194155145 : -tiles
+C_0010358599209595726571 o-- C_0012981370137985239891 : -visual_ships
 C_0009570138490440331692 o-- C_0004388322207682371427 : -scores
+C_0007274271151019855886 o-- C_0010358599209595726571 : -player_board
+C_0007274271151019855886 o-- C_0010358599209595726571 : -ai_board
+C_0007274271151019855886 o-- C_0016540721780518084962 : -game_timer
+C_0007274271151019855886 o-- C_0011320984242218861763 : -p_ships_counter
+C_0007274271151019855886 o-- C_0011320984242218861763 : -ai_ships_counter
+C_0007274271151019855886 o-- C_0000221405838615140689 : -reset_button
+C_0007274271151019855886 o-- C_0009570138490440331692 : -leaderboard
 
 'Generated with clang-uml, version 0.6.3
 'LLVM version clang version 22.1.8 (https://github.com/llvm/llvm-project.git ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
